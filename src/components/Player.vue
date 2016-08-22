@@ -3,7 +3,7 @@
   #player
     
     .controls
-        label {{action}}
+        label(v-bind:style="{ color: btns1 }") {{action}}
         br
         button(@click="pwrPlay", @mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns1 }") {{play ? 'pause' : 'play'}}
         button(@click="audioMute", @mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns2 }") {{mute ? 'unmute' : 'mute'}}
@@ -18,8 +18,7 @@
     
     .text {{{text}}}
     
-    .background
-      div
+    background(:colors="colors")
     
     #matterjs(data-scene="{{scene}}")
 
@@ -27,9 +26,11 @@
 
 <script>
 import Audio from './Audio'
+import Background from './Background'
 export default {
   components: {
-    Audio
+    Audio,
+    Background
   },
   data () {
     return {
@@ -45,7 +46,8 @@ export default {
         bg: 'rgb(252,67,111)',
         gd1a: 'rgb(252,67,111)',
         gd1b: 'rgb(113,187,161)',
-        gd1direction: 'top'
+        gd1op: '0',
+        gd1direction: 'right'
       }
     }
   },
