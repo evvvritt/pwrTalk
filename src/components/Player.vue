@@ -1,10 +1,10 @@
 <template lang="jade">
 
   #player
-    
+
+    h1(v-bind:style="{ color: btns1 }") {{action}}
+
     .controls
-        label(v-bind:style="{ color: btns1 }") {{action}}
-        br
         button(@click="pwrPlay", @mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns1 }") {{play ? 'pause' : 'play'}}
         button(@click="audioMute", @mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns2 }") {{mute ? 'unmute' : 'mute'}}
         button(@mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns1 }") clear
