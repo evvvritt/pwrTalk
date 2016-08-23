@@ -2,13 +2,13 @@
 
   #player
 
-    h1(v-bind:style="{ color: btns1 }") {{action}}
+    h1(v-bind:style="{ color: colors.btns.odd }") {{action}}
 
     .controls
-        button(@click="pwrPlay", @mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns1 }") {{play ? 'pause' : 'play'}}
-        button(@click="audioMute", @mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns2 }") {{mute ? 'unmute' : 'mute'}}
-        button(@mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns1 }") clear
-        button(@mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns2 }") next
+      button(@click="pwrPlay", @mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns.odd }") {{play ? 'pause' : 'play'}}
+      button(@click="audioMute", @mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns.even }") {{mute ? 'unmute' : 'mute'}}
+      button(@mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns.odd }") clear
+      button(@mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns.even }") next
     
     audio(
       :audio="audio",
@@ -41,13 +41,17 @@ export default {
       audio: '/static/demo/song1.mp3',
       text: 'pwrTalk is a consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       colors: {
-        btns1: 'rgb(247, 221, 212)',
-        btns2: 'rgb(255,17,73)',
+        btns: {
+          odd: 'rgb(247, 221, 212)',
+          even: 'rgb(255,17,73)'
+        },
         bg: 'rgb(252,67,111)',
-        gd1a: 'rgb(252,67,111)',
-        gd1b: 'rgb(113,187,161)',
-        gd1op: '0',
-        gd1direction: 'right'
+        gradient: {
+          start: 'rgb(252,67,111)',
+          end: 'rgb(113,187,161)',
+          opacity: '0',
+          direction: 'right'
+        }
       }
     }
   },
