@@ -16,7 +16,7 @@
       :mute="mute"
     )
     
-    .text {{{text}}}
+    .text(v-bind:style="{ color: colors.text }") {{{text}}}
     
     background(:colors="colors")
     
@@ -45,11 +45,12 @@ export default {
           odd: 'rgb(247, 221, 212)',
           even: 'rgb(255,17,73)'
         },
+        text: 'rgb(113,187,161)',
         bg: 'rgb(252,67,111)',
         gradient: {
           start: 'rgb(252,67,111)',
           end: 'rgb(113,187,161)',
-          opacity: '0',
+          opacity: 0,
           direction: 'right'
         }
       }
