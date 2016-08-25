@@ -1,6 +1,6 @@
 <template lang="jade">
   .background(v-bind:style="{ backgroundColor: colors.bg }")
-    .background(v-bind:style="{ background: 'linear-gradient(to ' + colors.gradient.direction + ', ' + colors.gradient.start + '0%, ' + colors.gradient.end + ' 100%)', opacity: colors.gradient.opoacity }")
+    .background(v-bind:style="{ background: 'linear-gradient(to ' + colors.gradient.direction + ', ' + colors.gradient.start + '0%, ' + colors.gradient.end + ' 100%)', opacity: colors.gradient.opacity }")
 </template>
 
 <script>
