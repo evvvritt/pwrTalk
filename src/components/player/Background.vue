@@ -5,15 +5,15 @@
 
 <script>
 export default {
-  props: ['colors'],
+  props: ['color'],
   computed: {
     layer0 () {
-      return { backgroundColor: this.colors.bg }
+      return { backgroundColor: this.color.bg }
     },
     layer1 () {
       return {
-        opacity: this.colors.gradient.opacity,
-        background: 'linear-gradient(to ' + this.colors.gradient.direction + ', ' + this.colors.gradient.start + '0%, ' + this.colors.gradient.end + ' 100%)'
+        opacity: this.color.gradient.opacity,
+        background: 'linear-gradient(to ' + this.color.gradient.direction + ', ' + this.color.gradient.start + '0%, ' + this.color.gradient.end + ' 100%)'
       }
     }
   }

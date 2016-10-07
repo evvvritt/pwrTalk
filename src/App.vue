@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Player from './components/Player'
+import Player from './components/player/Player'
 
 export default {
   components: {
