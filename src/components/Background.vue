@@ -1,26 +1,28 @@
 <template lang="jade">
-	.background(:style="{ layer0 }")
-		.background(:style="{ layer1 }")
+  .background(:style="layer0")
+    .background(:style="layer1")
 </template>
 
 <script>
 export default {
-	props: ['colors'],
-	data: {
-		layer0:{
-			backgroundColor: colors.bg
-		},
-		layer1:{
-			opacity: colors.gradient.opacity,
-			background: 'linear-gradient(to ' + colors.gradient.direction + ', ' + colors.gradient.start + '0%, ' + colors.gradient.end + ' 100%)'
-		}
-	}
+  props: ['colors'],
+  computed: {
+    layer0 () {
+      return { backgroundColor: this.colors.bg }
+    },
+    layer1 () {
+      return {
+        opacity: this.colors.gradient.opacity,
+        background: 'linear-gradient(to ' + this.colors.gradient.direction + ', ' + this.colors.gradient.start + '0%, ' + this.colors.gradient.end + ' 100%)'
+      }
+    }
+  }
 }
 </script>
 
 <style lang="scss">
 #player > .background{
-	position: fixed;
-	z-index: -1;
+  position: fixed;
+  z-index: -1;
 }
 </style>
