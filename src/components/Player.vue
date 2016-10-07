@@ -2,13 +2,13 @@
 
   #player
 
-    h1(v-bind:style="{ color: colors.btns.odd }") {{action}}
+    h1(:style="{ color: colors.btns.odd }") {{action}}
 
     .controls
-      button(@click="pwrPlay", @mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns.odd }") {{play ? 'pause' : 'play'}}
-      button(@click="audioMute", @mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns.even }") {{mute ? 'unmute' : 'mute'}}
-      button(@mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns.odd }") clear
-      button(@mouseenter="btnEnter", @mouseleave="btnLeave", v-bind:style="{ backgroundColor : colors.btns.even }") next
+      button(@click="pwrPlay", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : colors.btns.odd }") {{play ? 'pause' : 'play'}}
+      button(@click="audioMute", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : colors.btns.even }") {{mute ? 'unmute' : 'mute'}}
+      button(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : colors.btns.odd }") clear
+      button(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : colors.btns.even }") next
     
     audio(
       :audio="audio",
@@ -16,7 +16,7 @@
       :mute="mute"
     )
     
-    .text(v-bind:style="{ color: colors.text }") {{{text}}}
+    .text(:style="{ color: colors.text }") {{{text}}}
     
     background(:colors="colors")
     

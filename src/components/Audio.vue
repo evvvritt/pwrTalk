@@ -1,7 +1,7 @@
 <template lang="jade">
   audio(
         v-el:audio,
-        v-bind:src="audio",
+        :src="audio",
       )
 </template>
 
