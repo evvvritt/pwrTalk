@@ -1,5 +1,5 @@
 <template lang="jade">
-  audio(ref="song",:src="song",@canplay="canplay",@pause="ended")
+  audio(ref="song",:src="song",@canplay="canplay",@ended="ended")
 </template>
 
 <script>
