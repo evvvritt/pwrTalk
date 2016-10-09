@@ -7,13 +7,13 @@
 export default {
   props: ['color'],
   computed: {
-    layer0 () {
+    layer0() {
       return { backgroundColor: this.color.bg }
     },
-    layer1 () {
+    layer1() {
       return {
         opacity: this.color.gradient.opacity,
-        background: 'linear-gradient(to ' + this.color.gradient.direction + ', ' + this.color.gradient.start + '0%, ' + this.color.gradient.end + ' 100%)'
+        background: `linear-gradient(to ${this.color.gradient.direction}, ${this.color.gradient.start} 0%, ${this.color.gradient.end} 100%)`
       }
     }
   }

@@ -10,35 +10,36 @@
       button(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : color.btnsOdd }") clear
       button(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : color.btnsEven }") next
     
-    audio(
-      :audio="audio",
+    song(
+      :song="song",
       :play="play",
       :mute="mute"
     )
     
-    .text(:style="{ color: color.text }") {{{text}}}
+    .text(v-html="text",:style="{ color: color.text }") 
     
     background(:color="color")
     
-    #matterjs(data-scene="{{game}}")
+    #matterjs(:data-scene="game")
 
 </template>
 
 <script>
-import Audio from './Audio'
+import Song from './Song'
 import Background from './Background'
+
 export default {
   components: {
-    Audio,
+    Song,
     Background
   },
-  data () {
+  data() {
     return {
       play: false,
       mute: false,
       action: '',
       game: 'gravity',
-      audio: '/static/demo/song1.mp3',
+      song: '/static/demo/song1.mp3',
       text: 'pwrTalk is a consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       color: {
         text: 'rgb(113,187,161)',
@@ -58,16 +59,14 @@ export default {
     pwrPlay: function (e) {
       this.play = !this.play
       this.mute = this.play ? false : this.mute
-      var vm = this
-      setTimeout(function () {
-        vm.action = e.target.innerHTML
+      setTimeout(() => {
+        this.action = e.target.innerHTML
       }, 10)
     },
     audioMute: function (e) {
       this.mute = !this.mute
-      var vm = this
-      setTimeout(function () {
-        vm.action = e.target.innerHTML
+      setTimeout(() => {
+        this.action = e.target.innerHTML
       }, 10)
     },
     btnEnter: function (e) {

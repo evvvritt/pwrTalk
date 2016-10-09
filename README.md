@@ -1,6 +1,6 @@
 # pwrtalk
 
-> Audio Player Web-app for pwrTalk 
+> A Vue.js project
 
 ## Build Setup
 

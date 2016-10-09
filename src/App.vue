@@ -1,7 +1,6 @@
-<template>
-  <div id="app">
-    <player></player>
-  </div>
+<template lang="jade">
+  #app 
+    player
 </template>
 
 <script>
@@ -9,9 +8,9 @@ import Player from './components/player/Player'
 
 export default {
   components: {
-    Player
-  }
-}
+    Player,
+  },
+};
 </script>
 
-<style src="./styles/globals.scss" lang="scss"></style>
+<style src="./style/global.scss" lang="scss"></style>
