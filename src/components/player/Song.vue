@@ -1,14 +1,17 @@
 <template lang="jade">
-  audio(ref="song",:src="song",@canplay="canplay")
+  audio(ref="song",:src="song",@canplay="canplay",@pause="ended")
 </template>
 
 <script>
 export default {
   props: ['song', 'play', 'mute'],
   methods: {
-    canplay() {
+    canplay: function () {
       return this.play ? this.$refs.song.play() : null
     },
+    ended: function () {
+      return this.$emit('ended')
+    }
   },
   watch: {
     play: function () {

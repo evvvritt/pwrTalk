@@ -10,9 +10,9 @@
         li(@click="nextScene", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsEven }") next
       label(:style="{ color: current.colors.btnsOdd }") {{actionPreview}}
     
-    song(:song="current.song",:play="play",:mute="mute")
-    
-    .text(v-html="current.text",:style="current.textStyle") 
+    article
+      .text(v-html="current.text",:style="current.textStyle") 
+      song(:song="current.song",:play="play",:mute="mute",v-on:ended="nextScene")
     
     background(:colors="current.colors")
     
