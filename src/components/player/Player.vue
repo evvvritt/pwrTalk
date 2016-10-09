@@ -4,13 +4,13 @@
 
     nav
       ul
-        li(@click="pwrPlay", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsOdd }") {{play ? 'pause' : 'play'}}
-        li(@click="audioMute", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") {{mute ? 'unmute' : 'mute'}}
-        li(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsOdd }") clear
-        li(@click="nextScene", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") next
+        li(@click="pwrPlay", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsOdd }") {{play ? 'pause' : 'play'}}
+        li(@click="audioMute", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsEven }") {{mute ? 'unmute' : 'mute'}}
+        li(@mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsOdd }") clear
+        li(@click="nextScene", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsEven }") next
       label(:style="{ color: current.colors.btnsOdd }") {{actionPreview}}
     
-    song(:song="current.song",:play="play",:mute="mute",:index="index")
+    song(:song="current.song",:play="play",:mute="mute")
     
     .text(v-html="current.text",:style="current.textStyle") 
     
@@ -19,6 +19,9 @@
     #matterjs(:data-scene="current.game")
 
 </template>
+
+<!-- ==================================================================== -->
+
 <script>
 import Song from './Song'
 import Background from './Background'
@@ -48,35 +51,30 @@ export default {
     pwrPlay: function (e) {
       this.play = !this.play
       this.mute = this.play ? false : this.mute
-      setTimeout(() => {
-        this.actionPreview = e.target.innerHTML
-      }, 10)
+      setTimeout(() => { this.setActionPreview(e.target.innerHTML) }, 10);
     },
     audioMute: function (e) {
       this.mute = !this.mute
-      setTimeout(() => {
-        this.actionPreview = e.target.innerHTML
-      }, 10)
+      setTimeout(() => { this.setActionPreview(e.target.innerHTML) }, 10);
     },
-    btnEnter: function (e) {
-      this.actionPreview = e.target.innerHTML
-    },
-    btnLeave: function () {
-      this.actionPreview = ''
+    setActionPreview: function (e = '') {
+      this.actionPreview = typeof e.target === 'undefined' ? e : e.target.innerHTML
     },
     nextScene: function () {
       this.loading = true;
       // after loading animation
       setTimeout(() => {
-        this.index = this.index + 1 === this.scenes.length ? 0 : this.index + 1;
-        this.navTop = !this.navTop;
-        this.loading = false;
-        this.actionPreview = '';
+        this.index = this.index + 1 === this.scenes.length ? 0 : this.index + 1
+        this.navTop = !this.navTop
+        this.loading = false
+        this.actionPreview = ''
       }, 550); // give some buffer from animation
     }
   },
 }
 </script>
+
+<!-- ==================================================================== -->
 
 <style lang="scss" scoped>
 @import '../../style/variables';
