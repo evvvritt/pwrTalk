@@ -45,7 +45,7 @@ export default {
   computed: {
     current() {
       return this.scenes[this.index]
-    }
+    },
   },
   methods: {
     pwrPlay: function (e) {
@@ -66,8 +66,8 @@ export default {
       setTimeout(() => {
         this.index = this.index + 1 === this.scenes.length ? 0 : this.index + 1
         this.navTop = !this.navTop
-        this.loading = false
         this.actionPreview = ''
+        this.loading = false
       }, 550); // give some buffer from animation
     }
   },
@@ -80,7 +80,6 @@ export default {
 @import '../../style/variables';
 
 nav{
-    
     ul > li{
       display: block;
       position: fixed;
@@ -140,7 +139,6 @@ nav{
     .loading > & ul > li{
       height:100%;
     }
-
     .nav-top > & ul > li{
       // transform:translateY(calc(-100vh + 100%));
       top:0;
