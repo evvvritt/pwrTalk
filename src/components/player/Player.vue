@@ -2,15 +2,15 @@
 
   #player
 
-    h1(:style="{ color: current.colors.btnsOdd }") {{actionPreview}}
-
-    nav.controls
-      button(@click="pwrPlay", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsOdd }") {{play ? 'pause' : 'play'}}
-      button(@click="audioMute", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") {{mute ? 'unmute' : 'mute'}}
-      button(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsOdd }") clear
-      button(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") next
+    nav
+      .controls
+        button(@click="pwrPlay", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsOdd }") {{play ? 'pause' : 'play'}}
+        button(@click="audioMute", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") {{mute ? 'unmute' : 'mute'}}
+        button(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsOdd }") clear
+        button(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") next
+      label(:style="{ color: current.colors.btnsOdd }") {{actionPreview}}
     
-    song(:song="current.song",:play="current.play",:mute="current.mute")
+    song(:song="current.song",:play="play",:mute="mute")
     
     .text(v-html="current.text",:style="{ color: current.colors.text }") 
     

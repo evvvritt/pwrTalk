@@ -7,10 +7,11 @@ export default {
   props: ['song', 'play', 'autoplay', 'mute'],
   watch: {
     play: function (play) {
-      return play ? this.$els.song.play() : this.$els.song.pause()
+      console.log(play);
+      return play ? this.$refs.song.play() : this.$refs.song.pause()
     },
     mute: function (mute) {
-      this.$els.song.muted = mute
+      this.$refs.song.muted = mute
     }
   }
 }

@@ -8,7 +8,9 @@ export default {
   props: ['colors'],
   computed: {
     layer0() {
-      return { backgroundColor: this.colors.bg }
+      return {
+        backgroundColor: this.colors.bg
+      }
     },
     layer1() {
       return {
