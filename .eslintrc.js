@@ -26,13 +26,16 @@ module.exports = {
     }],
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-
+    // allow console during development
+    'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
     // my rules
     'func-names': 0,
     'semi': 0,
     'comma-dangle': 0,
     'object-shorthand': 0,
     'spaced-comment': 0,
-    'no-console': 0,
+  },
+  'env': {
+    'browser': true
   }
 }

@@ -51,11 +51,11 @@ export default {
     pwrPlay: function (e) {
       this.play = !this.play
       this.mute = this.play ? false : this.mute
-      setTimeout(() => { this.setActionPreview(e.target.innerHTML) }, 10);
+      setTimeout(() => { this.setActionPreview(e.target.innerHTML) }, 50);
     },
     audioMute: function (e) {
       this.mute = !this.mute
-      setTimeout(() => { this.setActionPreview(e.target.innerHTML) }, 10);
+      setTimeout(() => { this.setActionPreview(e.target.innerHTML) }, 50);
     },
     setActionPreview: function (e = '') {
       this.actionPreview = typeof e.target === 'undefined' ? e : e.target.innerHTML
@@ -69,8 +69,20 @@ export default {
         this.actionPreview = ''
         this.loading = false
       }, 550); // give some buffer from animation
+    },
+    onKeyDown: function (e) {
+      if (e.keyCode === 32) { // spacebar
+        e.preventDefault()
+        this.pwrPlay()
+      }
     }
   },
+  created() {
+    document.addEventListener('keydown', this.onKeyDown)
+  },
+  beforeDestroy() {
+    document.removeEventListener('keydown', this.onKeyDown)
+  }
 }
 </script>
 
