@@ -5,15 +5,15 @@
 
 <script>
 export default {
-  props: ['color'],
+  props: ['colors'],
   computed: {
     layer0() {
-      return { backgroundColor: this.color.bg }
+      return { backgroundColor: this.colors.bg }
     },
     layer1() {
       return {
-        opacity: this.color.gradient.opacity,
-        background: `linear-gradient(to ${this.color.gradient.direction}, ${this.color.gradient.start} 0%, ${this.color.gradient.end} 100%)`
+        opacity: this.colors.gradient.opacity,
+        background: `linear-gradient(to ${this.colors.gradient.direction}, ${this.colors.gradient.start} 0%, ${this.colors.gradient.end} 100%)`
       }
     }
   }
@@ -21,6 +21,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/variables';
 #player > .background{
   position: fixed;
   z-index: -1;
