@@ -1,13 +1,13 @@
 <template lang="jade">
 
-  #player
+  #player(:class="{ 'loading' : loading, 'nav-top' : navTop }")
 
     nav
-      .controls
-        button(@click="pwrPlay", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsOdd }") {{play ? 'pause' : 'play'}}
-        button(@click="audioMute", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") {{mute ? 'unmute' : 'mute'}}
-        button(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsOdd }") clear
-        button(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") next
+      ul
+        li(@click="pwrPlay", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsOdd }") {{play ? 'pause' : 'play'}}
+        li(@click="audioMute", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") {{mute ? 'unmute' : 'mute'}}
+        li(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsOdd }") clear
+        li(@click="toggleNav", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") next
       label(:style="{ color: current.colors.btnsOdd }") {{actionPreview}}
     
     song(:song="current.song",:play="play",:mute="mute")
@@ -33,6 +33,7 @@ export default {
     return {
       play: false,
       mute: false,
+      loading: false,
       actionPreview: '',
       current: {},
       scenes: [
@@ -53,7 +54,8 @@ export default {
             }
           }
         },
-      ]
+      ],
+      navTop: false,
     }
   },
   created() {
@@ -78,7 +80,59 @@ export default {
     },
     btnLeave: function () {
       this.actionPreview = ''
+    },
+    toggleNav: function () {
+      this.loading = true;
+      setTimeout(() => {
+        this.navTop = !this.navTop;
+        this.loading = false;
+      }, 600); // give some buffer from animation
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import '../../style/variables';
+
+nav{
+
+    li{
+      display: block;
+      position: fixed;
+      width:25%;
+      bottom:0;
+      height:3%;
+      cursor: pointer;
+      transition: height .5s, background-color .5s;
+      color:transparent;
+      &:nth-child(1){
+          left:0;
+      }
+      &:nth-child(2){
+        left:calc(100%/4);
+        transition-delay:.05s;
+      }
+      &:nth-child(3){
+        left:calc(100%/2);
+        transition-delay:.1s;
+      }
+      &:nth-child(4){
+        left:calc(100%*3/4);
+        transition-delay:.15s;
+      }
+    }
+  
+    // states
+    .loading > & li{
+      height:100%;
+    }
+
+    .nav-top > & li{
+      // transform:translateY(calc(-100vh + 100%));
+      top:0;
+      bottom:auto;
+    }
+}
+  
+</style>

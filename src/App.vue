@@ -15,11 +15,18 @@ export default {
 
 <style lang="scss">
 @import './style/variables';
+// reset
 *{
   margin:0;
   padding:0;
 }
-  
+button{ 
+  border:none
+}
+
+
+// global 
+
 html{
   font-size:12px //rem
 }
