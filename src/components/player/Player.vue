@@ -7,24 +7,24 @@
         li(@click="pwrPlay", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsOdd }") {{play ? 'pause' : 'play'}}
         li(@click="audioMute", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") {{mute ? 'unmute' : 'mute'}}
         li(@mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsOdd }") clear
-        li(@click="toggleNav", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") next
+        li(@click="nextScene", @mouseenter="btnEnter", @mouseleave="btnLeave", :style="{ backgroundColor : current.colors.btnsEven }") next
       label(:style="{ color: current.colors.btnsOdd }") {{actionPreview}}
     
-    song(:song="current.song",:play="play",:mute="mute")
+    song(:song="current.song",:play="play",:mute="mute",:index="index")
     
-    .text(v-html="current.text",:style="{ color: current.colors.text }") 
+    .text(v-html="current.text",:style="current.textStyle") 
     
     background(:colors="current.colors")
     
     #matterjs(:data-scene="current.game")
 
 </template>
-
 <script>
 import Song from './Song'
 import Background from './Background'
 
 export default {
+  props: ['scenes'],
   components: {
     Song,
     Background
@@ -35,31 +35,14 @@ export default {
       mute: false,
       loading: false,
       actionPreview: '',
-      current: {},
-      scenes: [
-        {
-          song: '/static/demo/song1.mp3',
-          game: 'gravity',
-          text: 'pwrTalk is a consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-          colors: {
-            text: 'rgb(113,187,161)',
-            btnsOdd: 'rgb(247, 221, 212)',
-            btnsEven: 'rgb(255,17,73)',
-            bg: 'rgb(252,67,111)',
-            gradient: {
-              start: 'rgb(252,67,111)',
-              end: 'rgb(113,187,161)',
-              opacity: 0,
-              direction: 'right'
-            }
-          }
-        },
-      ],
+      index: 0,
       navTop: false,
     }
   },
-  created() {
-    this.current = this.scenes[0]
+  computed: {
+    current() {
+      return this.scenes[this.index]
+    }
   },
   methods: {
     pwrPlay: function (e) {
@@ -81,14 +64,17 @@ export default {
     btnLeave: function () {
       this.actionPreview = ''
     },
-    toggleNav: function () {
+    nextScene: function () {
       this.loading = true;
+      // after loading animation
       setTimeout(() => {
+        this.index = this.index + 1 === this.scenes.length ? 0 : this.index + 1;
         this.navTop = !this.navTop;
         this.loading = false;
-      }, 600); // give some buffer from animation
+        this.actionPreview = '';
+      }, 550); // give some buffer from animation
     }
-  }
+  },
 }
 </script>
 
@@ -96,8 +82,8 @@ export default {
 @import '../../style/variables';
 
 nav{
-
-    li{
+    
+    ul > li{
       display: block;
       position: fixed;
       width:25%;
@@ -105,6 +91,7 @@ nav{
       height:3%;
       cursor: pointer;
       transition: height .5s, background-color .5s;
+      z-index: $z-nav;
       color:transparent;
       &:nth-child(1){
           left:0;
@@ -122,17 +109,52 @@ nav{
         transition-delay:.15s;
       }
     }
+
+    > label{
+      position: fixed;
+      width: 100%;
+      font-size:200px;
+      height:200px;
+      line-height: 1;
+      top:calc(50% - 120px);
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: .25em;
+      z-index:$z-nav-label;
+    }
+    
+    // hover effect       — use psuedo to scale since li has transition-delay...
+    > ul > li:before{
+      content:'';
+      display: block;
+      width:100%; height:100%;
+      position:absolute;
+      top:0; left:0;
+      transition:transform .5s;
+      background-color:inherit;
+      z-index: -1;
+    }
+    > ul:hover > li:before{
+      transform:scale(1,2);
+    }
   
     // states
-    .loading > & li{
+    .loading > & ul > li{
       height:100%;
     }
 
-    .nav-top > & li{
+    .nav-top > & ul > li{
       // transform:translateY(calc(-100vh + 100%));
       top:0;
       bottom:auto;
     }
+}
+
+.text{
+  font-size:3em;
+  line-height: 2em;
+  letter-spacing: 4em;
+  word-wrap:break-word;
 }
   
 </style>

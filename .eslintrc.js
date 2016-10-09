@@ -33,5 +33,6 @@ module.exports = {
     'comma-dangle': 0,
     'object-shorthand': 0,
     'spaced-comment': 0,
+    'no-console': 0,
   }
 }
