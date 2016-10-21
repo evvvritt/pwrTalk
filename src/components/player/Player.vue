@@ -12,7 +12,8 @@
     
     article
       .text(v-html="current.text",:style="current.textStyle") 
-      song(:song="current.song",:play="play",:mute="mute",v-on:ended="nextScene")
+      //- song(:song="current.song",:play="play",:mute="mute",v-on:ended="nextScene")
+      audio(ref="song",:src="current.song",@canplay="audioCanPlay",@playing="audioIsPlaying",@ended="nextScene")
     
     background(:colors="current.colors")
     
@@ -23,13 +24,11 @@
 <!-- ==================================================================== -->
 
 <script>
-import Song from './Song'
 import Background from './Background'
 
 export default {
   props: ['scenes'],
   components: {
-    Song,
     Background
   },
   data() {
@@ -49,20 +48,32 @@ export default {
   },
   methods: {
     pwrPlay: function (e) {
-      this.play = !this.play
-      this.mute = this.play ? false : this.mute
+      const audio = this.$refs.song
+      // pause or play ?
+      if (!audio.paused && audio.duration > 0) {
+        audio.pause()
+        this.play = false
+      } else {
+        audio.play()
+        this.mute = false
+      }
+      // update button preview
       setTimeout(() => { this.setActionPreview(e.target.innerHTML) }, 50);
     },
     audioMute: function (e) {
       this.mute = !this.mute
       setTimeout(() => { this.setActionPreview(e.target.innerHTML) }, 50);
     },
-    setActionPreview: function (e = '') {
-      this.actionPreview = typeof e.target === 'undefined' ? e : e.target.innerHTML
+    audioCanPlay: function () {
+      return this.play ? this.$refs.song.play() : null
+    },
+    audioIsPlaying: function () {
+      this.play = true
     },
     nextScene: function () {
+      // trigger loading state
       this.loading = true;
-      // after loading animation
+      // after loading state finishes
       setTimeout(() => {
         this.index = this.index + 1 === this.scenes.length ? 0 : this.index + 1
         this.navTop = !this.navTop
@@ -70,11 +81,19 @@ export default {
         this.loading = false
       }, 550); // give some buffer from animation
     },
+    setActionPreview: function (e = '') {
+      this.actionPreview = typeof e.target === 'undefined' ? e : e.target.innerHTML
+    },
     onKeyDown: function (e) {
       if (e.keyCode === 32) { // spacebar
         e.preventDefault()
         this.pwrPlay()
       }
+    }
+  },
+  watch: {
+    mute: function (val) {
+      this.$refs.song.muted = val
     }
   },
   created() {
