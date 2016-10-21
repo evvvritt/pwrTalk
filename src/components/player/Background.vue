@@ -27,5 +27,6 @@ export default {
 #player > .background{
   position: fixed;
   z-index: -1;
+  transition:background-color 1s;
 }
 </style>

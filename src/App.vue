@@ -25,14 +25,19 @@ export default {
           colors: {
             btnsOdd: 'rgb(247, 221, 212)',
             btnsEven: 'rgb(255,17,73)',
-            bg: 'rgb(252,67,111)',
+            bg: 'turquoise', //'rgb(252,67,111)',
             gradient: {
               start: 'rgb(252,67,111)',
               end: 'rgb(113,187,161)',
-              opacity: 0,
+              opacity: 0.0000001,
               direction: 'right'
             }
-          }
+          },
+          events: [
+            { time: 3, color: 'red' },
+            { time: 9, color: 'blue' },
+            { time: 15, color: 'green' }
+          ],
         },
         {
           song: '/static/demo/song2.mp3',
@@ -53,7 +58,12 @@ export default {
               opacity: 0.65,
               direction: 'right'
             }
-          }
+          },
+          events: [
+            { time: 6, color: 'red' },
+            { time: 9, color: 'blue' },
+            { time: 15, color: 'green' }
+          ],
         }
       ],
     }

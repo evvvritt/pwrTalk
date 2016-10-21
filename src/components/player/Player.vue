@@ -13,7 +13,7 @@
     article
       .text(v-html="current.text",:style="current.textStyle") 
       //- song(:song="current.song",:play="play",:mute="mute",v-on:ended="nextScene")
-      audio(ref="song",:src="current.song",@canplay="audioCanPlay",@playing="audioIsPlaying",@ended="nextScene")
+      audio(ref="song",:src="current.song",@canplay="audioCanPlay",@playing="audioIsPlaying",@timeupdate="audioTime",@ended="nextScene")
     
     background(:colors="current.colors")
     
@@ -69,6 +69,15 @@ export default {
     },
     audioIsPlaying: function () {
       this.play = true
+    },
+    audioTime: function () {
+      const events = this.current.events
+      if (events.length > 0) {
+        if (this.$refs.song.currentTime >= events[0].time && events.length > 0) {
+          this.current.colors.bg = events[0].color
+          events.shift()
+        }
+      }
     },
     nextScene: function () {
       // trigger loading state
