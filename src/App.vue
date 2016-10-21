@@ -29,7 +29,7 @@ export default {
             gradient: {
               start: 'rgb(252,67,111)',
               end: 'rgb(113,187,161)',
-              opacity: 0.0000001,
+              opacity: 0,
               direction: 'right'
             }
           },
