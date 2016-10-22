@@ -9,7 +9,8 @@ export default {
   computed: {
     layer0() {
       return {
-        backgroundColor: this.colors.bg
+        backgroundColor: this.colors.bg,
+        transitionDuration: this.colors.bgTransition
       }
     },
     layer1() {
@@ -27,6 +28,6 @@ export default {
 #player > .background{
   position: fixed;
   z-index: -1;
-  transition:background-color 1s;
+  transition:background-color .5s;
 }
 </style>

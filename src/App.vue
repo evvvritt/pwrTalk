@@ -26,6 +26,7 @@ export default {
             btnsOdd: 'rgb(247, 221, 212)',
             btnsEven: 'rgb(255,17,73)',
             bg: 'rgb(252,67,111)',
+            bgTransition: '750ms',
             gradient: {
               start: 'rgb(252,67,111)',
               end: 'rgb(113,187,161)',
@@ -34,9 +35,9 @@ export default {
             }
           },
           events: [
-            { time: 3, color: 'red' },
-            { time: 9, color: 'blue' },
-            { time: 15, color: 'green' }
+            { time: 3, color: 'red', transition: '1200ms' },
+            { time: 9, color: 'blue', transition: '300ms' },
+            { time: 15, color: 'green', transition: '1200ms' }
           ],
         },
         {
@@ -52,6 +53,7 @@ export default {
             btnsOdd: '#ddd',
             btnsEven: 'rgb(122, 152, 121)',
             bg: 'transparent',
+            bgTransition: '500ms',
             gradient: {
               start: 'rgb(128,133,150)',
               end: 'rgb(245,107,150)',
@@ -60,9 +62,9 @@ export default {
             }
           },
           events: [
-            { time: 6, color: 'red' },
-            { time: 9, color: 'blue' },
-            { time: 15, color: 'green' }
+            { time: 6, color: 'red', transition: '1200ms' },
+            { time: 9, color: 'blue', transition: '300ms' },
+            { time: 15, color: 'green', transition: '1200ms' }
           ],
         }
       ],

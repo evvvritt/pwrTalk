@@ -78,6 +78,7 @@ export default {
       const events = this.current.events
       if (events.length > 0) {
         if (this.$refs.song.currentTime >= events[0].time && events.length > 0) {
+          this.current.colors.bgTransition = events[0].transition
           this.current.colors.bg = events[0].color
           events.shift()
         }
