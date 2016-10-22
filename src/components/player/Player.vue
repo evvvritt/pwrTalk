@@ -21,7 +21,11 @@
 
 </template>
 
+
+
 <!-- ==================================================================== -->
+
+
 
 <script>
 import Background from './Background'
@@ -114,7 +118,11 @@ export default {
 }
 </script>
 
+
+
 <!-- ==================================================================== -->
+
+
 
 <style lang="scss" scoped>
 @import '../../style/variables';

@@ -25,7 +25,7 @@ export default {
           colors: {
             btnsOdd: 'rgb(247, 221, 212)',
             btnsEven: 'rgb(255,17,73)',
-            bg: 'turquoise', //'rgb(252,67,111)',
+            bg: 'rgb(252,67,111)',
             gradient: {
               start: 'rgb(252,67,111)',
               end: 'rgb(113,187,161)',
