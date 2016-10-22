@@ -17,7 +17,7 @@
     
     background(:colors="current.colors")
     
-    #matterjs(:data-scene="current.game")
+    #matterjs.background(ref="game",:data-engine="current.game",@mousewheel="matterjsLowerZ")
 
 </template>
 
@@ -29,6 +29,8 @@
 
 <script>
 import Background from './Background'
+
+const Game = require('../../assets/js/game.js')
 
 export default {
   props: ['scenes'],
@@ -97,6 +99,9 @@ export default {
     },
     setActionPreview: function (e = '') {
       this.actionPreview = typeof e.target === 'undefined' ? e : e.target.innerHTML
+    },
+    matterjsLowerZ: function () {
+      this.$refs.game.classList.add('behind-text')
     },
     onKeyDown: function (e) {
       if (e.keyCode === 32) { // spacebar
@@ -200,6 +205,16 @@ nav{
   line-height: 2em;
   letter-spacing: 4em;
   word-wrap:break-word;
+  position: relative;
+  z-index: 30;
+}
+
+#matterjs{
+  position: fixed;
+  z-index:$z-matterjs;
+  &.behind-text{
+    z-index:25;
+  }
 }
   
 </style>

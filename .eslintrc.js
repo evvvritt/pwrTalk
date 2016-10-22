@@ -34,6 +34,8 @@ module.exports = {
     'comma-dangle': 0,
     'object-shorthand': 0,
     'spaced-comment': 0,
+    'no-underscore-dangle':0,
+    'max-len':0,
   },
   'env': {
     'browser': true
