@@ -129,6 +129,9 @@ export default {
   created() {
     document.addEventListener('keydown', this.onKeyDown)
   },
+  mounted() {
+    Game.init()
+  },
   beforeDestroy() {
     document.removeEventListener('keydown', this.onKeyDown)
   }

@@ -71,26 +71,16 @@ let Demo;
     return demo;
   };
 
-  // call init when the page has loaded fully
-  //if (!_isAutomatedTest) {
-  if (window.addEventListener) {
-    window.addEventListener('load', Demo.init);
-  } else if (window.attachEvent) {
-    window.attachEvent('load', Demo.init);
-  }
-  //}
-
   Demo.setScene = function (demo, sceneName) {
     Example[sceneName](demo);
   }
+
   Demo.reset = function (demo) {
     const demmo = demo
     const world = demmo.engine.world
     let i
 
-
     // DESTORY OLD WORLD ====================================
-
 
     World.clear(world);
     Engine.clear(demmo.engine);
