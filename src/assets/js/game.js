@@ -4,37 +4,21 @@ const Example = require('./game_engines.js');
 let Demo;
 
 (function () {
-  const isBrowser = typeof window !== 'undefined' && window.location
-  const isMobile = isBrowser && /(ipad|iphone|ipod|android)/gi.test(navigator.userAgent)
-
-  //const Matter = isBrowser ? window.Matter : require('../../build/matter-dev.js');
+  //const isBrowser = typeof window !== 'undefined' && window.location
+  //const isMobile = isBrowser && /(ipad|iphone|ipod|android)/gi.test(navigator.userAgent)
 
   Demo = {};
   Matter.Demo = Demo;
 
-  //if (!isBrowser) {
-    //module.exports = Demo;
-    ////window = {};
-  //}
-
   // Matter aliases
   const Body = Matter.Body
-  //const Example = Matter.Example
   const Engine = Matter.Engine
   const World = Matter.World
   const Common = Matter.Common
   const Bodies = Matter.Bodies
   const Events = Matter.Events
-  //const Mouse = Matter.Mouse
   const MouseConstraint = Matter.MouseConstraint
-  //const Runner = Matter.Runner
   const Render = Matter.Render
-
-  //// MatterTools aliases
-  //if (window.MatterTools) {
-    //const Gui = MatterTools.Gui
-    //const Inspector = MatterTools.Inspector
-  //}
 
   Demo.create = function (options) {
     const defaults = {
@@ -55,7 +39,6 @@ let Demo;
     demo.engine = Example.engine(demo);
     // run the engine
     demo.runner = Engine.run(demo.engine);
-
     // create a debug renderer
     demo.render = Render.create({
       element: demo.container,
@@ -65,10 +48,8 @@ let Demo;
         height: window.innerHeight
       }
     });
-
     // run the renderer
     Render.run(demo.render);
-
     // add a mouse controlled constraint
     demo.mouseConstraint = MouseConstraint.create(demo.engine, {
       element: demo.render.canvas,
@@ -81,17 +62,9 @@ let Demo;
     World.add(demo.engine.world, demo.mouseConstraint);
     // pass mouse to renderer to enable showMousePosition
     demo.render.mouse = demo.mouseConstraint.mouse;
-
-    // scene function from article data
-    demo.sceneName = demo.container.dataset.engine
-
     // set up a scene with bodies
     Demo.reset(demo);
-    Demo.setScene(demo, demo.sceneName);
-
-    // set up demo interface (see end of this file)
-    //Demo.initControls(demo);
-
+    Demo.setScene(demo, demo.container.dataset.engine);
     // pass through runner as timing for debug rendering
     demo.engine.metrics.timing = demo.runner;
 
@@ -115,6 +88,10 @@ let Demo;
     const world = demmo.engine.world
     let i
 
+
+    // DESTORY OLD WORLD ====================================
+
+
     World.clear(world);
     Engine.clear(demmo.engine);
 
@@ -125,32 +102,27 @@ let Demo;
         renderController.clear(demmo.render);
       }
     }
-
     // clear all scene events
     if (demmo.engine.events) {
       for (i = 0; i < demmo.sceneEvents.length; i += 1) {
         Events.off(demmo.engine, demmo.sceneEvents[i]);
       }
     }
-
     if (demmo.mouseConstraint && demmo.mouseConstraint.events) {
       for (i = 0; i < demmo.sceneEvents.length; i += 1) {
         Events.off(demmo.mouseConstraint, demmo.sceneEvents[i]);
       }
     }
-
     if (world.events) {
       for (i = 0; i < demmo.sceneEvents.length; i += 1) {
         Events.off(world, demmo.sceneEvents[i]);
       }
     }
-
     if (demmo.runner && demmo.runner.events) {
       for (i = 0; i < demmo.sceneEvents.length; i += 1) {
         Events.off(demmo.runner, demmo.sceneEvents[i]);
       }
     }
-
     if (demmo.render && demmo.render.events) {
       for (i = 0; i < demmo.sceneEvents.length; i += 1) {
         Events.off(demmo.render, demmo.sceneEvents[i]);
@@ -168,11 +140,9 @@ let Demo;
     // reset random seed
     Common._seed = 0;
 
-    // reset mouse offset and scale (only required for Demo.views)
-    //if (demmo.mouseConstraint) {
-      //Mouse.setScale(demmo.mouseConstraint.mouse, { x: 1, y: 1 });
-      //Mouse.setOffset(demmo.mouseConstraint.mouse, { x: 0, y: 0 });
-    //}
+
+    // BUILD NEW WORLD ====================================
+
 
     demmo.engine.enableSleeping = false;
     demmo.engine.world.gravity.y = 1;
@@ -185,6 +155,7 @@ let Demo;
     const height = window.innerHeight
     const thickness = 10
     const options = {
+      restitution: 0.25,
       isStatic: true,
       render: {
         fillStyle: 'transparent',
@@ -223,14 +194,15 @@ let Demo;
         height + (thickness * 2),
         options
       )
+    // add boundaries
     World.add(world, [top, bottom, left, right])
-    // bounce
-    top.restitution = bottom.restitution = left.restitution = right.restitution = 0.25;
 
+    // add Mouse Constraint
     if (demmo.mouseConstraint) {
       World.add(world, demmo.mouseConstraint);
     }
 
+    // render it
     if (demmo.render) {
       const renderOptions = demmo.render.options;
       renderOptions.wireframes = false;
@@ -251,20 +223,16 @@ let Demo;
       renderOptions.showSeparations = false;
       renderOptions.background = 'transparent';
 
-      if (isMobile) {
-        renderOptions.showDebug = true;
-      }
     }
   };
 
-  Demo.changeScene = function (sceneName) {
+  Demo.changeScene = (sceneName) => {
     const demo = Matter.Demo._demo;
     Demo.reset(demo);
     Demo.setScene(demo, sceneName);
   }
 
-  Demo.event = {};
-  Demo.event.explosion = function () {
+  Demo.explosion = () => {
     const engine = Matter.Demo._demo.engine
     const bodies = Matter.Composite.allBodies(engine.world);
 
@@ -282,7 +250,8 @@ let Demo;
       }
     }
   }
-  Demo.gravity = function (x = 0, y = 0) {
+
+  Demo.gravity = (x = 0, y = 0) => {
     const g = Matter.Demo._demo.engine.world.gravity;
     g.x = x;
     g.y = y;

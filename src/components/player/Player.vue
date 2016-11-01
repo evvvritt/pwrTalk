@@ -82,7 +82,7 @@ export default {
       if (events.length > 0) {
         if (this.$refs.song.currentTime >= events[0].time && events.length > 0) {
           // game event
-          Game.event.explosion();
+          Game.explosion();
           // change colors
           this.current.colors.bgTransition = events[0].transition
           this.current.colors.bg = events[0].color
@@ -120,7 +120,7 @@ export default {
   },
   watch: {
     play: function (play) {
-      return play ? Game.event.explosion() : Game.gravity(0, 1);
+      return play ? Game.explosion() : Game.gravity(0, 1);
     },
     mute: function (val) {
       this.$refs.song.muted = val
