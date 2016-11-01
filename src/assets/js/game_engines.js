@@ -40,10 +40,6 @@ Matter.Example = Example;
     const sceneEvents = demo.sceneEvents
     let dragged = false
 
-    setTimeout(() => {
-      engine.world.gravity.y = 0;
-    }, 500);
-
     // Events
     sceneEvents.push(
       // an example of using mouse events on a mouse
@@ -67,9 +63,9 @@ Matter.Example = Example;
     // Scene Code
     const stack = Composites.stack(50, 50, 3, 3, 100, 50, (x, y) => {
       const options = {
-        frictionAir: 0,
-        friction: 0.001, //0.0001,
-        restitution: 0.2,
+        //frictionAir: 0,
+        //friction: 0.001, //0.0001,
+        restitution: 0.4,
         render: {
           fillStyle: 'rgba(255,0,98,.75)', //'rgba(0,0,255,.75)',
           strokeStyle: 'transparent'
@@ -80,9 +76,8 @@ Matter.Example = Example;
           if (Common.random() < 0.8) {
             return Bodies.rectangle(x, y, Common.random(100, 150), Common.random(100, 150), options);
           }
-          options.id = 'close';
+          //options.id = 'close';
           return Bodies.rectangle(x, y, Common.random(150, 200), Common.random(50, 60), options);
-          // break;
         case 1:
           return Bodies.polygon(x, y, Math.round(Common.random(1, 1)), Common.random(100, 100), options);
         default:

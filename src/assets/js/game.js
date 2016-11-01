@@ -107,29 +107,6 @@ let Demo;
   }
   //}
 
-  Demo.event = {};
-  Demo.event.explosion = function () {
-    const engine = Matter.Demo._demo.engine
-    const bodies = Matter.Composite.allBodies(engine.world);
-
-    for (let i = 0; i < bodies.length; i += 1) {
-      const body = bodies[i];
-
-      if (!body.isStatic) {
-        const forceMagnitude = 0.03 * body.mass;
-        Body.applyForce(body, body.position, {
-          x: (forceMagnitude + (Common.random() * forceMagnitude)) * Common.choose([1, -1]),
-          y: -forceMagnitude + (Common.random() * -forceMagnitude)
-        });
-      }
-    }
-  }
-
-  Demo.changeScene = function (sceneName) {
-    const demo = Matter.Demo._demo;
-    Demo.reset(demo);
-    Demo.setScene(demo, sceneName);
-  }
   Demo.setScene = function (demo, sceneName) {
     Example[sceneName](demo);
   }
@@ -207,13 +184,20 @@ let Demo;
     const width = window.innerWidth
     const height = window.innerHeight
     const thickness = 10
+    const options = {
+      isStatic: true,
+      render: {
+        fillStyle: 'transparent',
+        strokeStyle: 'transparent',
+      }
+    }
     const top =
       Bodies.rectangle(
         width / 2,
         -thickness - offset,
         width + (thickness * 2),
         thickness,
-        { isStatic: true }
+        options
       )
     const bottom =
       Bodies.rectangle(
@@ -221,7 +205,7 @@ let Demo;
         height + thickness + offset,
         width + (thickness * 2),
         thickness,
-        { isStatic: true }
+        options
       )
     const left =
       Bodies.rectangle(
@@ -229,7 +213,7 @@ let Demo;
         height / 2,
         thickness,
         height + (thickness * 2),
-        { isStatic: true }
+        options
       )
     const right =
       Bodies.rectangle(
@@ -237,11 +221,11 @@ let Demo;
         height / 2,
         thickness,
         height + (thickness * 2),
-        { isStatic: true }
+        options
       )
     World.add(world, [top, bottom, left, right])
     // bounce
-    top.restitution = bottom.restitution = left.restitution = right.restitution = 1;
+    top.restitution = bottom.restitution = left.restitution = right.restitution = 0.25;
 
     if (demmo.mouseConstraint) {
       World.add(world, demmo.mouseConstraint);
@@ -272,6 +256,38 @@ let Demo;
       }
     }
   };
+
+  Demo.changeScene = function (sceneName) {
+    const demo = Matter.Demo._demo;
+    Demo.reset(demo);
+    Demo.setScene(demo, sceneName);
+  }
+
+  Demo.event = {};
+  Demo.event.explosion = function () {
+    const engine = Matter.Demo._demo.engine
+    const bodies = Matter.Composite.allBodies(engine.world);
+
+    engine.world.gravity.y = 0;
+
+    for (let i = 0; i < bodies.length; i += 1) {
+      const body = bodies[i];
+
+      if (!body.isStatic) {
+        const forceMagnitude = 0.03 * body.mass;
+        Body.applyForce(body, body.position, {
+          x: (forceMagnitude + (Common.random() * forceMagnitude)) * Common.choose([1, -1]),
+          y: -forceMagnitude + (Common.random() * -forceMagnitude)
+        });
+      }
+    }
+  }
+  Demo.gravity = function (x = 0, y = 0) {
+    const g = Matter.Demo._demo.engine.world.gravity;
+    g.x = x;
+    g.y = y;
+  }
+
 }());
 
 module.exports = Demo;

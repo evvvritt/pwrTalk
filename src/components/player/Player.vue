@@ -119,6 +119,9 @@ export default {
     }
   },
   watch: {
+    play: function (play) {
+      return play ? Game.event.explosion() : Game.gravity(0, 1);
+    },
     mute: function (val) {
       this.$refs.song.muted = val
     }
@@ -140,6 +143,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../style/variables';
+$nav-h:2rem;
 
 nav{
     ul > li{
@@ -147,7 +151,7 @@ nav{
       position: fixed;
       width:25%;
       bottom:0;
-      height:3%;
+      height:$nav-h;
       cursor: pointer;
       transition: height .5s, background-color .5s;
       z-index: $z-nav;
@@ -220,6 +224,7 @@ nav{
 #matterjs{
   position: fixed;
   z-index:$z-matterjs;
+  height:calc(100vh - #{$nav-h});
   &.behind-text{
     z-index:25;
   }
