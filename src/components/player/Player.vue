@@ -81,6 +81,9 @@ export default {
       const events = this.current.events
       if (events.length > 0) {
         if (this.$refs.song.currentTime >= events[0].time && events.length > 0) {
+          // game event
+          Game.event.explosion();
+          // change colors
           this.current.colors.bgTransition = events[0].transition
           this.current.colors.bg = events[0].color
           events.shift()
@@ -96,6 +99,7 @@ export default {
         this.navTop = !this.navTop
         this.actionPreview = ''
         this.loading = false
+        Game.changeScene(this.current.game)
       }, 550); // give some buffer from animation
     },
     setActionPreview: function (e = '') {

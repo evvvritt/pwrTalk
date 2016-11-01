@@ -40,7 +40,9 @@ Matter.Example = Example;
     const sceneEvents = demo.sceneEvents
     let dragged = false
 
-    engine.world.gravity.y = 0;
+    setTimeout(() => {
+      engine.world.gravity.y = 0;
+    }, 500);
 
     // Events
     sceneEvents.push(
@@ -54,12 +56,10 @@ Matter.Example = Example;
     );
     sceneEvents.push(
       // an example of using mouse events on a mouse
-      Events.on(mouseConstraint, 'mouseup', () => {
+      Events.on(mouseConstraint, 'mousedown', () => {
         if (dragged) {
           dragged = false;
           demo.container.classList.remove('behind-text')
-        } else {
-          demo.container.classList.add('behind-text')
         }
       })
     );
@@ -67,6 +67,9 @@ Matter.Example = Example;
     // Scene Code
     const stack = Composites.stack(50, 50, 3, 3, 100, 50, (x, y) => {
       const options = {
+        frictionAir: 0,
+        friction: 0.001, //0.0001,
+        restitution: 0.2,
         render: {
           fillStyle: 'rgba(255,0,98,.75)', //'rgba(0,0,255,.75)',
           strokeStyle: 'transparent'
@@ -107,14 +110,18 @@ Matter.Example = Example;
     const world = engine.world;
     const sceneEvents = demo.sceneEvents;
 
-    const explosion = function (engin) {
+    setTimeout(() => {
+      engine.world.gravity.y = 0;
+    }, 500);
+
+    const explosion = (engin) => {
       const bodies = Composite.allBodies(engin.world);
 
       for (let i = 0; i < bodies.length; i += 1) {
         const body = bodies[i];
 
         if (!body.isStatic && body.position.y >= 500) {
-          const forceMagnitude = 0.05 * body.mass;
+          const forceMagnitude = body.mass * 0.05;
 
           Body.applyForce(body, body.position, {
             x: (forceMagnitude + (Common.random() * forceMagnitude)) * Common.choose([1, -1]),
@@ -122,13 +129,13 @@ Matter.Example = Example;
           });
         }
       }
-    };
+    }
 
-    let timeScaleTarget = 1;
+    let timeScaleTarget = 0;
     let counter = 0;
 
     sceneEvents.push(
-      Events.on(engine, 'afterUpdate', () => {
+      Events.on(engine, 'afterUpdate-asdfasf', () => {
         // tween the timescale for bullet time slow-mo
         engine.timing.timeScale += (timeScaleTarget - engine.timing.timeScale) * 0.05;
         counter += 1;
@@ -152,10 +159,10 @@ Matter.Example = Example;
       frictionAir: 0,
       friction: 0.0001,
       restitution: 0.8,
-      render: {
-        fillStyle: 'rgba(255,0,98,.9)', //rgba(255,0,98,.75)', //'rgba(0,0,255,.75)',
-        strokeStyle: 'transparent'
-      }
+      //render: {
+        //fillStyle: 'rgba(255,0,98,.9)', //rgba(255,0,98,.75)', //'rgba(0,0,255,.75)',
+        //strokeStyle: 'transparent'
+      //}
     };
 
     // add some small bouncy circles... remember Swordfish?

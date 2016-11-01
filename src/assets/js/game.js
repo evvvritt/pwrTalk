@@ -49,13 +49,10 @@ let Demo;
   Demo.init = function () {
     const demo = Demo.create();
     Matter.Demo._demo = demo; // Matter.Demo._demo = demo;
-
     // get container element for the canvas
     demo.container = document.getElementById('matterjs');
-
     // create an example engine (see /examples/engine.js)
     demo.engine = Example.engine(demo);
-
     // run the engine
     demo.runner = Engine.run(demo.engine);
 
@@ -102,14 +99,37 @@ let Demo;
   };
 
   // call init when the page has loaded fully
-  ////if (!_isAutomatedTest) {
+  //if (!_isAutomatedTest) {
   if (window.addEventListener) {
     window.addEventListener('load', Demo.init);
   } else if (window.attachEvent) {
     window.attachEvent('load', Demo.init);
   }
-  ////}
+  //}
 
+  Demo.event = {};
+  Demo.event.explosion = function () {
+    const engine = Matter.Demo._demo.engine
+    const bodies = Matter.Composite.allBodies(engine.world);
+
+    for (let i = 0; i < bodies.length; i += 1) {
+      const body = bodies[i];
+
+      if (!body.isStatic) {
+        const forceMagnitude = 0.03 * body.mass;
+        Body.applyForce(body, body.position, {
+          x: (forceMagnitude + (Common.random() * forceMagnitude)) * Common.choose([1, -1]),
+          y: -forceMagnitude + (Common.random() * -forceMagnitude)
+        });
+      }
+    }
+  }
+
+  Demo.changeScene = function (sceneName) {
+    const demo = Matter.Demo._demo;
+    Demo.reset(demo);
+    Demo.setScene(demo, sceneName);
+  }
   Demo.setScene = function (demo, sceneName) {
     Example[sceneName](demo);
   }
