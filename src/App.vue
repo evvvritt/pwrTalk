@@ -15,7 +15,7 @@ export default {
       scenes: [
         {
           song: '/static/demo/song1.mp3',
-          game: 'gravity',
+          game: 'timescale',
           text: 'pwrTalk is a consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
           textStyle: {
             margin: '30vh 0 30vh 25%',
@@ -42,7 +42,7 @@ export default {
         },
         {
           song: '/static/demo/song2.mp3',
-          game: 'something',
+          game: 'gravity',
           text: 'different text',
           textStyle: {
             margin: '75vh 0 50vh 5%',

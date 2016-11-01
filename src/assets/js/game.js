@@ -17,10 +17,6 @@ let Demo;
     ////window = {};
   //}
 
-  Demo.test = function () {
-    console.log('game js loaded')
-  }
-
   // Matter aliases
   const Body = Matter.Body
   //const Example = Matter.Example
@@ -29,7 +25,7 @@ let Demo;
   const Common = Matter.Common
   const Bodies = Matter.Bodies
   const Events = Matter.Events
-  const Mouse = Matter.Mouse
+  //const Mouse = Matter.Mouse
   const MouseConstraint = Matter.MouseConstraint
   //const Runner = Matter.Runner
   const Render = Matter.Render
@@ -43,7 +39,7 @@ let Demo;
   Demo.create = function (options) {
     const defaults = {
       isManual: false,
-      sceneName: 'gravity', // default
+      //sceneName: 'gravity', // default
       sceneEvents: []
     };
 
@@ -85,9 +81,7 @@ let Demo;
         }
       }
     });
-
     World.add(demo.engine.world, demo.mouseConstraint);
-
     // pass mouse to renderer to enable showMousePosition
     demo.render.mouse = demo.mouseConstraint.mouse;
 
@@ -123,6 +117,7 @@ let Demo;
     const demmo = demo
     const world = demmo.engine.world
     let i
+
     World.clear(world);
     Engine.clear(demmo.engine);
 
@@ -177,10 +172,10 @@ let Demo;
     Common._seed = 0;
 
     // reset mouse offset and scale (only required for Demo.views)
-    if (demmo.mouseConstraint) {
-      Mouse.setScale(demmo.mouseConstraint.mouse, { x: 1, y: 1 });
-      Mouse.setOffset(demmo.mouseConstraint.mouse, { x: 0, y: 0 });
-    }
+    //if (demmo.mouseConstraint) {
+      //Mouse.setScale(demmo.mouseConstraint.mouse, { x: 1, y: 1 });
+      //Mouse.setOffset(demmo.mouseConstraint.mouse, { x: 0, y: 0 });
+    //}
 
     demmo.engine.enableSleeping = false;
     demmo.engine.world.gravity.y = 1;

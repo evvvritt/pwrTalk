@@ -6,7 +6,7 @@
       ul
         li(@click="pwrPlay", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsOdd }") {{play ? 'pause' : 'play'}}
         li(@click="audioMute", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsEven }") {{mute ? 'unmute' : 'mute'}}
-        li(@mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsOdd }") clear
+        li(@click="gameClear", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsOdd }") clear
         li(@click="nextScene", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsEven }") next
       label(:style="{ color: current.colors.btnsOdd }") {{actionPreview}}
     
@@ -17,7 +17,7 @@
     
     background(:colors="current.colors")
     
-    #matterjs.background(ref="game",:data-engine="current.game",@mousewheel="matterjsLowerZ")
+    #matterjs.background(ref="game",:data-engine="current.game",@mousewheel="gameLowerZ")
 
 </template>
 
@@ -41,6 +41,7 @@ export default {
     return {
       play: false,
       mute: false,
+      gaming: true,
       loading: false,
       actionPreview: '',
       index: 0,
@@ -100,7 +101,10 @@ export default {
     setActionPreview: function (e = '') {
       this.actionPreview = typeof e.target === 'undefined' ? e : e.target.innerHTML
     },
-    matterjsLowerZ: function () {
+    gameClear: function () {
+      Game.reset()
+    },
+    gameLowerZ: function () {
       this.$refs.game.classList.add('behind-text')
     },
     onKeyDown: function (e) {

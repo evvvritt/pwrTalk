@@ -36,6 +36,7 @@ module.exports = {
     'spaced-comment': 0,
     'no-underscore-dangle':0,
     'max-len':0,
+    'padded-blocks':0,
   },
   'env': {
     'browser': true
