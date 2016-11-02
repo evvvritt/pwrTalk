@@ -17,7 +17,7 @@
     
     background(:colors="current.colors")
 
-    gameboard(:gaming="gaming",:current="current")
+    gameboard(:gaming="gaming",:current="current",:gravity="gravity")
 
 </template>
 
@@ -45,7 +45,7 @@ export default {
       mute: false,
       gaming: true,
       loading: false,
-      actionPreview: '',
+      actionPreview: 'pwrTalk',
       index: 0,
       navTop: false,
     }
@@ -54,6 +54,12 @@ export default {
     current() {
       return this.scenes[this.index]
     },
+    gravity() {
+      return {
+        x: 0,
+        y: this.navTop ? 0.5 : -0.5
+      }
+    }
   },
   methods: {
     pwrPlay: function (e) {
@@ -117,7 +123,7 @@ export default {
   },
   watch: {
     play: function (play) {
-      return play ? Game.explosion() : Game.gravity(0, 1);
+      return play ? Game.explosion() : Game.gravity(0, this.gravity.y);
     },
     mute: function (val) {
       this.$refs.song.muted = val

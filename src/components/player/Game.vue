@@ -1,15 +1,15 @@
 <template lang="jade">
-  #matterjs.background(v-if="gaming",ref="game",:data-engine="current.game",@mousewheel="gameLowerZ")
+  #matterjs.background(v-if="gaming",ref="gameboard",:data-engine="current.game",@mousewheel="gameLowerZ")
 </template>
 
 <script>
 const Game = require('../../assets/js/game.js')
 
 export default {
-  props: ['gaming', 'current'],
+  props: ['gaming', 'current', 'gravity'],
   methods: {
     gameLowerZ: function () {
-      this.$refs.game.classList.add('behind-text')
+      this.$refs.gameboard.classList.add('behind-text')
     },
   },
   watch: {

@@ -133,7 +133,7 @@ const Game = {};
 
 
     gamme.engine.enableSleeping = false;
-    gamme.engine.world.gravity.y = 1;
+    gamme.engine.world.gravity.y = -0.25;
     gamme.engine.world.gravity.x = 0;
     gamme.engine.timing.timeScale = 1;
 
