@@ -6,7 +6,7 @@
       ul
         li(@click="pwrPlay", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsOdd }") {{play ? 'pause' : 'play'}}
         li(@click="audioMute", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsEven }") {{mute ? 'unmute' : 'mute'}}
-        li(@click="gameClear", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsOdd }") clear
+        li(@click="gameState", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsOdd }") {{gaming ? 'clean' : 'messy'}}
         li(@click="nextScene", @mouseenter="setActionPreview($event)", @mouseleave="setActionPreview()", :style="{ backgroundColor : current.colors.btnsEven }") next
       label(:style="{ color: current.colors.btnsOdd }") {{actionPreview}}
     
@@ -16,8 +16,8 @@
       audio(ref="song",:src="current.song",@canplay="audioCanPlay",@playing="audioIsPlaying",@timeupdate="audioTime",@ended="nextScene")
     
     background(:colors="current.colors")
-    
-    #matterjs.background(ref="game",:data-engine="current.game",@mousewheel="gameLowerZ")
+
+    gameboard(:gaming="gaming",:current="current")
 
 </template>
 
@@ -29,13 +29,15 @@
 
 <script>
 import Background from './Background'
+import Gameboard from './Game'
 
 const Game = require('../../assets/js/game.js')
 
 export default {
   props: ['scenes'],
   components: {
-    Background
+    Background,
+    Gameboard
   },
   data() {
     return {
@@ -91,7 +93,6 @@ export default {
       }
     },
     nextScene: function () {
-      // trigger loading state
       this.loading = true;
       // after loading state finishes
       setTimeout(() => {
@@ -99,17 +100,13 @@ export default {
         this.navTop = !this.navTop
         this.actionPreview = ''
         this.loading = false
-        Game.changeScene(this.current.game)
-      }, 550); // give some buffer from animation
+      }, 550); // have some buffer from animation
     },
     setActionPreview: function (e = '') {
       this.actionPreview = typeof e.target === 'undefined' ? e : e.target.innerHTML
     },
-    gameClear: function () {
-      Game.reset()
-    },
-    gameLowerZ: function () {
-      this.$refs.game.classList.add('behind-text')
+    gameState: function () {
+      this.gaming = !this.gaming
     },
     onKeyDown: function (e) {
       if (e.keyCode === 32) { // spacebar
@@ -124,13 +121,10 @@ export default {
     },
     mute: function (val) {
       this.$refs.song.muted = val
-    }
+    },
   },
   created() {
     document.addEventListener('keydown', this.onKeyDown)
-  },
-  mounted() {
-    Game.init()
   },
   beforeDestroy() {
     document.removeEventListener('keydown', this.onKeyDown)
@@ -146,7 +140,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../style/variables';
-$nav-h:2rem;
 
 nav{
     ul > li{
@@ -222,15 +215,6 @@ nav{
   word-wrap:break-word;
   position: relative;
   z-index: 30;
-}
-
-#matterjs{
-  position: fixed;
-  z-index:$z-matterjs;
-  height:calc(100vh - #{$nav-h});
-  &.behind-text{
-    z-index:25;
-  }
 }
   
 </style>
