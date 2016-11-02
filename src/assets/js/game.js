@@ -1,14 +1,13 @@
 const Matter = require('matter-js/src/module/main.js');
-const Example = require('./game_engines.js');
+const Scenes = require('./scenes/_scenes.js');
 
-let Demo;
+const Game = {};
 
 (function () {
   //const isBrowser = typeof window !== 'undefined' && window.location
   //const isMobile = isBrowser && /(ipad|iphone|ipod|android)/gi.test(navigator.userAgent)
 
-  Demo = {};
-  Matter.Demo = Demo;
+  Matter.Game = Game;
 
   // Matter aliases
   const Body = Matter.Body
@@ -20,106 +19,105 @@ let Demo;
   const MouseConstraint = Matter.MouseConstraint
   const Render = Matter.Render
 
-  Demo.create = function (options) {
+  Game.create = function (options) {
     const defaults = {
       isManual: false,
       //sceneName: 'gravity', // default
       sceneEvents: []
     };
-
     return Common.extend(defaults, options);
   };
 
-  Demo.init = function () {
-    const demo = Demo.create();
-    Matter.Demo._demo = demo; // Matter.Demo._demo = demo;
+  Game.init = function () {
+    const game = Game.create();
+    Matter.Game._game = game;
     // get container element for the canvas
-    demo.container = document.getElementById('matterjs');
+    game.container = document.getElementById('matterjs');
     // create an example engine (see /examples/engine.js)
-    demo.engine = Example.engine(demo);
+    game.engine = Scenes.engine(game);
     // run the engine
-    demo.runner = Engine.run(demo.engine);
+    game.runner = Engine.run(game.engine);
     // create a debug renderer
-    demo.render = Render.create({
-      element: demo.container,
-      engine: demo.engine,
+    game.render = Render.create({
+      element: game.container,
+      engine: game.engine,
       options: {
         width: window.innerWidth,
         height: window.innerHeight
       }
     });
     // run the renderer
-    Render.run(demo.render);
+    Render.run(game.render);
     // add a mouse controlled constraint
-    demo.mouseConstraint = MouseConstraint.create(demo.engine, {
-      element: demo.render.canvas,
+    game.mouseConstraint = MouseConstraint.create(game.engine, {
+      element: game.render.canvas,
       constraint: {
         render: {
           visible: false
         }
       }
     });
-    World.add(demo.engine.world, demo.mouseConstraint);
+    World.add(game.engine.world, game.mouseConstraint);
     // pass mouse to renderer to enable showMousePosition
-    demo.render.mouse = demo.mouseConstraint.mouse;
+    game.render.mouse = game.mouseConstraint.mouse;
     // set up a scene with bodies
-    Demo.reset(demo);
-    Demo.setScene(demo, demo.container.dataset.engine);
+    Game.reset(game);
+    Game.setScene(game, game.container.dataset.engine);
     // pass through runner as timing for debug rendering
-    demo.engine.metrics.timing = demo.runner;
+    game.engine.metrics.timing = game.runner;
 
-    return demo;
+    return game;
   };
 
-  Demo.setScene = function (demo, sceneName) {
-    Example[sceneName](demo);
+  Game.setScene = function (game, sceneName) {
+    Scenes[sceneName](game);
   }
 
-  Demo.reset = function (demo) {
-    const demmo = demo
-    const world = demmo.engine.world
+  Game.reset = function (game) {
+    const gamme = game
+    const world = gamme.engine.world
     let i
 
     // DESTORY OLD WORLD ====================================
 
     World.clear(world);
-    Engine.clear(demmo.engine);
+    Engine.clear(gamme.engine);
 
     // clear scene graph (if defined in controller)
-    if (demmo.render) {
-      const renderController = demmo.render.controller;
+    if (gamme.render) {
+      const renderController = gamme.render.controller;
       if (renderController && renderController.clear) {
-        renderController.clear(demmo.render);
+        renderController.clear(gamme.render);
       }
     }
     // clear all scene events
-    if (demmo.engine.events) {
-      for (i = 0; i < demmo.sceneEvents.length; i += 1) {
-        Events.off(demmo.engine, demmo.sceneEvents[i]);
+    if (gamme.engine.events) {
+      for (i = 0; i < gamme.sceneEvents.length; i += 1) {
+        Events.off(gamme.engine, gamme.sceneEvents[i]);
       }
     }
-    if (demmo.mouseConstraint && demmo.mouseConstraint.events) {
-      for (i = 0; i < demmo.sceneEvents.length; i += 1) {
-        Events.off(demmo.mouseConstraint, demmo.sceneEvents[i]);
+    if (gamme.mouseConstraint && gamme.mouseConstraint.events) {
+      for (i = 0; i < gamme.sceneEvents.length; i += 1) {
+        Events.off(gamme.mouseConstraint, gamme.sceneEvents[i]);
       }
     }
     if (world.events) {
-      for (i = 0; i < demmo.sceneEvents.length; i += 1) {
-        Events.off(world, demmo.sceneEvents[i]);
+      for (i = 0; i < gamme.sceneEvents.length; i += 1) {
+        Events.off(world, gamme.sceneEvents[i]);
       }
     }
-    if (demmo.runner && demmo.runner.events) {
-      for (i = 0; i < demmo.sceneEvents.length; i += 1) {
-        Events.off(demmo.runner, demmo.sceneEvents[i]);
+    if (gamme.runner && gamme.runner.events) {
+      for (i = 0; i < gamme.sceneEvents.length; i += 1) {
+        Events.off(gamme.runner, gamme.sceneEvents[i]);
       }
     }
-    if (demmo.render && demmo.render.events) {
-      for (i = 0; i < demmo.sceneEvents.length; i += 1) {
-        Events.off(demmo.render, demmo.sceneEvents[i]);
+    if (gamme.render && gamme.render.events) {
+      for (i = 0; i < gamme.sceneEvents.length; i += 1) {
+        Events.off(gamme.render, gamme.sceneEvents[i]);
       }
     }
 
-    demmo.sceneEvents = [];
+    gamme.sceneEvents = [];
 
     // reset id pool
     Body._nextCollidingGroupId = 1;
@@ -134,10 +132,10 @@ let Demo;
     // BUILD NEW WORLD ====================================
 
 
-    demmo.engine.enableSleeping = false;
-    demmo.engine.world.gravity.y = 1;
-    demmo.engine.world.gravity.x = 0;
-    demmo.engine.timing.timeScale = 1;
+    gamme.engine.enableSleeping = false;
+    gamme.engine.world.gravity.y = 1;
+    gamme.engine.world.gravity.x = 0;
+    gamme.engine.timing.timeScale = 1;
 
     // world boundaries
     const offset = 0
@@ -188,13 +186,13 @@ let Demo;
     World.add(world, [top, bottom, left, right])
 
     // add Mouse Constraint
-    if (demmo.mouseConstraint) {
-      World.add(world, demmo.mouseConstraint);
+    if (gamme.mouseConstraint) {
+      World.add(world, gamme.mouseConstraint);
     }
 
     // render it
-    if (demmo.render) {
-      const renderOptions = demmo.render.options;
+    if (gamme.render) {
+      const renderOptions = gamme.render.options;
       renderOptions.wireframes = false;
       renderOptions.hasBounds = false;
       renderOptions.showDebug = false;
@@ -216,14 +214,14 @@ let Demo;
     }
   };
 
-  Demo.changeScene = (sceneName) => {
-    const demo = Matter.Demo._demo;
-    Demo.reset(demo);
-    Demo.setScene(demo, sceneName);
+  Game.changeScene = (sceneName) => {
+    const game = Matter.Game._game;
+    Game.reset(game);
+    Game.setScene(game, sceneName);
   }
 
-  Demo.explosion = () => {
-    const engine = Matter.Demo._demo.engine
+  Game.explosion = () => {
+    const engine = Matter.Game._game.engine
     const bodies = Matter.Composite.allBodies(engine.world);
 
     engine.world.gravity.y = 0;
@@ -241,12 +239,12 @@ let Demo;
     }
   }
 
-  Demo.gravity = (x = 0, y = 0) => {
-    const g = Matter.Demo._demo.engine.world.gravity;
+  Game.gravity = (x = 0, y = 0) => {
+    const g = Matter.Game._game.engine.world.gravity;
     g.x = x;
     g.y = y;
   }
 
 }());
 
-module.exports = Demo;
+module.exports = Game;
