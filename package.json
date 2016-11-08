@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "matter-js": "^0.10.0",
+    "tinycolor2": "^1.4.1",
     "vue": "^2.0.3"
   },
   "devDependencies": {

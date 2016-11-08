@@ -34,7 +34,6 @@ export default {
 #matterjs{
   position: fixed;
   z-index:$z-matterjs;
-  opacity:0.9;
   //height:calc(100vh - #{$nav-h});
   &.behind-text{
     z-index:25;
