@@ -37,6 +37,8 @@ module.exports = {
     'no-underscore-dangle':0,
     'max-len':0,
     'padded-blocks':0,
+    'space-infix-ops':0,
+    'prefer-template':0,
   },
   'env': {
     'browser': true

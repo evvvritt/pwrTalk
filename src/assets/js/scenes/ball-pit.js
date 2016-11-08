@@ -10,7 +10,7 @@ const Scenes = require('./_scenes.js');
   const Events = Matter.Events
   const Common = Matter.Common
 
-  Scenes.gravity = function (demo) {
+  Scenes.gravity = function (demo, bgColor = 'rgb(255,0,98)') {
     const engine = demo.engine
     const world = engine.world
     const mouseConstraint = demo.mouseConstraint
@@ -37,14 +37,15 @@ const Scenes = require('./_scenes.js');
       })
     );
 
-    // Scene Code
+    // Bodies
+    const fillColor = bgColor;
     const stack = Composites.stack(50, 50, 3, 3, 100, 50, (x, y) => {
       const options = {
         //frictionAir: 0,
         //friction: 0.001, //0.0001,
         restitution: 0.4,
         render: {
-          fillStyle: 'rgba(255,0,98,.75)', //'rgba(0,0,255,.75)',
+          fillStyle: fillColor, //'rgb(255,0,98)', //fillColor, //'rgba(0,0,255,.75)',
           strokeStyle: 'transparent'
         },
       }

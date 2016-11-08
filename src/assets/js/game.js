@@ -70,7 +70,7 @@ const Game = {};
   };
 
   Game.setScene = function (game, sceneName) {
-    Scenes[sceneName](game);
+    Scenes[sceneName](game, game.container.dataset.fill);
   }
 
   Game.reset = function (game) {
@@ -233,7 +233,7 @@ const Game = {};
         const forceMagnitude = 0.03 * body.mass;
         Body.applyForce(body, body.position, {
           x: (forceMagnitude + (Common.random() * forceMagnitude)) * Common.choose([1, -1]),
-          y: -forceMagnitude + (Common.random() * -forceMagnitude)
+          y: (forceMagnitude + (Common.random() * -forceMagnitude)) * Common.choose([1, -1]),
         });
       }
     }

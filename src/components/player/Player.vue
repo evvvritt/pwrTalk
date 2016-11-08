@@ -17,7 +17,7 @@
     
     background(:colors="current.colors")
 
-    gameboard(:gaming="gaming",:current="current",:gravity="gravity")
+    gameboard(:gaming="gaming",:current="current")
 
 </template>
 
@@ -53,12 +53,6 @@ export default {
   computed: {
     current() {
       return this.scenes[this.index]
-    },
-    gravity() {
-      return {
-        x: 0,
-        y: this.navTop ? 0.5 : -0.5
-      }
     }
   },
   methods: {
@@ -123,7 +117,12 @@ export default {
   },
   watch: {
     play: function (play) {
-      return play ? Game.explosion() : Game.gravity(0, this.gravity.y);
+      if (play) {
+        Game.explosion()
+        Game.gravity(0, 0)
+      } else {
+        Game.gravity(0, 0.25)
+      }
     },
     mute: function (val) {
       this.$refs.song.muted = val
