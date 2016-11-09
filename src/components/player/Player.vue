@@ -46,7 +46,7 @@ export default {
       mute: false,
       gaming: true,
       loading: false,
-      actionPreview: 'pwrTalk',
+      actionPreview: '_pwrTalk',
       index: 0,
       navTop: false,
     }
@@ -192,7 +192,7 @@ nav{
       top:calc(50% - 6vw);
       text-align: center;
       font-weight: 700;
-      letter-spacing: .3em;
+      letter-spacing: .25em;
       z-index:$z-nav-label;
     }
     
