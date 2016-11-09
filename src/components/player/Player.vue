@@ -86,8 +86,8 @@ export default {
           // game event
           Game.explosion();
           // change colors
-          this.current.colors.bgTransition = events[0].transition
-          this.current.colors.bg = events[0].color
+          this.current.colors.bg.transition = events[0].transition
+          this.current.colors.bg.color = events[0].color
           events.shift()
         }
       }

@@ -39,6 +39,7 @@ module.exports = {
     'padded-blocks':0,
     'space-infix-ops':0,
     'prefer-template':0,
+    'no-plusplus':0,
   },
   'env': {
     'browser': true

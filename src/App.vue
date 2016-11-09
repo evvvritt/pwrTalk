@@ -25,14 +25,17 @@ export default {
           colors: {
             btnsOdd: 'rgb(247, 221, 212)',
             btnsEven: 'rgb(255,17,73)',
-            bg: 'rgb(252,67,111)',
-            bgTransition: '750ms',
+            bg: {
+              color: 'rgb(252,67,111)',
+              transition: '750ms',
+            },
             gradient: {
               start: 'rgb(252,67,111)',
               end: 'rgb(113,187,161)',
               opacity: 0,
               direction: 'right'
-            }
+            },
+            shapes: 'rgb(252,67,111)',
           },
           events: [
             { time: 3, color: 'red', transition: '1200ms' },
@@ -52,14 +55,17 @@ export default {
           colors: {
             btnsOdd: '#ddd',
             btnsEven: 'rgb(122, 152, 121)',
-            bg: 'white',
-            bgTransition: '500ms',
+            bg: {
+              color: 'white',
+              transition: '500ms',
+            },
             gradient: {
               start: 'rgb(128,133,150)',
               end: 'rgb(245,107,150)',
               opacity: 0.65,
               direction: 'right'
-            }
+            },
+            shapes: 'orange',
           },
           events: [
             { time: 6, color: 'red', transition: '1200ms' },
@@ -71,7 +77,7 @@ export default {
     }
   },
   created() {
-    for (let i = this.scenes.length - 1; i >= 0; i-=1) {
+    for (let i = this.scenes.length - 1; i >= 0; i--) {
       this.scenes[i]._init = {}
       this.scenes[i]._init.events = this.scenes[i].events.slice(0)
       this.scenes[i]._init.colors = Object.assign({}, this.scenes[i].colors)

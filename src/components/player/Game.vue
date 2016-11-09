@@ -1,5 +1,5 @@
 <template lang="jade">
-  #matterjs.background(v-if="gaming",ref="gameboard",:data-engine="current.game",:data-fill="current.colors.bg",@mousewheel="gameLowerZ")
+  #matterjs.background(v-if="gaming",ref="gameboard",:data-engine="current.game",:data-fill="current.colors.shapes",@mousewheel="gameLowerZ")
 </template>
 
 <script>
@@ -14,12 +14,10 @@ export default {
   },
   watch: {
     gaming: (gaming) => {
-      if (gaming) {
-        setTimeout(() => Game.init(), 10);
-      }
+      if (gaming) setTimeout(() => Game.init(), 10)
     },
     current: (current) => {
-      Game.changeScene(current.game)
+      setTimeout(() => Game.changeScene(current.game), 10)
     }
   },
   // events

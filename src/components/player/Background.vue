@@ -9,8 +9,8 @@ export default {
   computed: {
     layer0() {
       return {
-        backgroundColor: this.colors.bg,
-        transitionDuration: this.colors.bgTransition
+        backgroundColor: this.colors.bg.color,
+        transitionDuration: this.colors.bg.transition
       }
     },
     layer1() {
