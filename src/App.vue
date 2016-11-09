@@ -38,9 +38,15 @@ export default {
             shapes: 'rgb(255,0,98)',
           },
           events: [
-            { time: 3, color: 'red', transition: '1200ms' },
-            { time: 9, color: 'blue', transition: '300ms' },
-            { time: 15, color: 'green', transition: '1200ms' }
+            { time: 1, transition: '1200ms', action: 'spin', value: 20 },
+            { time: 3, transition: '300ms', action: 'spin', value: 180 },
+            { time: 6, transition: '1200ms', action: 'spin', value: 90 },
+            { time: 11, transition: '1200ms', action: 'spin', value: -248 },
+            { time: 13, transition: '300ms', action: 'spin', value: -80 },
+            { time: 16, transition: '1200ms', action: 'spin', value: 34 },
+            { time: 21, transition: '1200ms', action: 'spin', value: 317 },
+            { time: 23, transition: '300ms', action: 'spin', value: -68 },
+            { time: 26, transition: '1200ms', action: 'spin', value: -128 },
           ],
         },
         {
@@ -53,24 +59,24 @@ export default {
             color: 'rgb(128,133,150)',
           },
           colors: {
-            btnsOdd: '#ddd',
-            btnsEven: 'rgb(122, 152, 121)',
+            btnsOdd: '#BBD5ED',
+            btnsEven: '#CCFFCB',
             bg: {
-              color: 'white',
+              color: '#CEFDFF',
               transition: '500ms',
             },
             gradient: {
-              start: 'rgb(128,133,150)',
-              end: 'rgb(245,107,150)',
-              opacity: 0.65,
+              start: '#BBD5ED',
+              end: 'transparent',
+              opacity: 0.5,
               direction: 'right'
             },
-            shapes: 'orange',
+            shapes: '#5BD8BD',
           },
           events: [
-            { time: 6, color: 'red', transition: '1200ms' },
-            { time: 9, color: 'blue', transition: '300ms' },
-            { time: 15, color: 'green', transition: '1200ms' }
+            { time: 6, transition: '1200ms', action: 'spin', value: 40 },
+            { time: 9, transition: '300ms', action: 'spin', value: -20 },
+            { time: 15, transition: '1200ms', action: 'spin', value: -60 }
           ],
         }
       ],

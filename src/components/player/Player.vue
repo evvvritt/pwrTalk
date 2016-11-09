@@ -32,6 +32,7 @@ import Background from './Background'
 import Gameboard from './Game'
 
 const Game = require('../../assets/js/game.js')
+const tinycolor = require('tinycolor2')
 
 export default {
   props: ['scenes'],
@@ -87,7 +88,9 @@ export default {
           Game.explosion();
           // change colors
           this.current.colors.bg.transition = events[0].transition
-          this.current.colors.bg.color = events[0].color
+          //this.current.colors.bg.color = events[0].color
+          const base = this.current._init.bg.color; console.log(base)
+          this.current.colors.bg.color = tinycolor(base)[events[0].action](events[0].value)
           events.shift()
         }
       }

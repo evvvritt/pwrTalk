@@ -1,6 +1,6 @@
 const Matter = require('matter-js');
 const Scenes = require('./_scenes.js');
-//const color = require('tinycolor2');
+const color = require('tinycolor2');
 
 // gravity
 (function () {
@@ -44,7 +44,7 @@ const Scenes = require('./_scenes.js');
         //friction: 0.001, //0.0001,
         restitution: 0.4,
         render: {
-          fillStyle: bgColor, //color(bgColor).darken().saturate(25), //.setAlpha(0.75), //'rgb(255,0,98)', //fillColor, //'rgba(0,0,255,.75)',
+          fillStyle: color(bgColor).setAlpha(0.75),
           strokeStyle: 'transparent'
         },
       }
@@ -53,7 +53,6 @@ const Scenes = require('./_scenes.js');
           if (Common.random() < 0.8) {
             return Bodies.rectangle(x, y, Common.random(100, 150), Common.random(100, 150), options);
           }
-          //options.id = 'close';
           return Bodies.rectangle(x, y, Common.random(150, 200), Common.random(50, 60), options);
         case 1:
           return Bodies.polygon(x, y, Math.round(Common.random(1, 1)), Common.random(100, 100), options);
