@@ -127,6 +127,12 @@ export default {
     mute: function (val) {
       this.$refs.song.muted = val
     },
+    index: function (newVal, oldVal) {
+      if (oldVal.length !== -1) {
+        this.$set(this.scenes[oldVal], 'colors', Object.assign({}, this.scenes[oldVal]._init.colors))
+        this.scenes[oldVal].events = this.scenes[oldVal]._init.events.slice(0)
+      }
+    }
   },
   created() {
     document.addEventListener('keydown', this.onKeyDown)

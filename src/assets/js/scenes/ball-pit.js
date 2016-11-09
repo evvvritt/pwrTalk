@@ -38,7 +38,7 @@ const color = require('tinycolor2');
     );
 
     // Bodies
-    const fillColor = color(bgColor).darken().saturate(25).setAlpha(0.75)
+    const fillColor = color(bgColor).darken().saturate(25) //.setAlpha(0.75)
     const stack = Composites.stack(50, 50, 3, 3, 100, 50, (x, y) => {
       const options = {
         //frictionAir: 0,

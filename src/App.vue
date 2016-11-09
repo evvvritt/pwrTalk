@@ -52,7 +52,7 @@ export default {
           colors: {
             btnsOdd: '#ddd',
             btnsEven: 'rgb(122, 152, 121)',
-            bg: 'transparent',
+            bg: 'white',
             bgTransition: '500ms',
             gradient: {
               start: 'rgb(128,133,150)',
@@ -68,6 +68,13 @@ export default {
           ],
         }
       ],
+    }
+  },
+  created() {
+    for (let i = this.scenes.length - 1; i >= 0; i-=1) {
+      this.scenes[i]._init = {}
+      this.scenes[i]._init.events = this.scenes[i].events.slice(0)
+      this.scenes[i]._init.colors = Object.assign({}, this.scenes[i].colors)
     }
   }
 };
