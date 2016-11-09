@@ -138,7 +138,7 @@ const Game = {};
     gamme.engine.timing.timeScale = 1;
 
     // world boundaries
-    const offset = 0
+    const offset = 150
     const width = window.innerWidth
     const height = window.innerHeight
     const thickness = 10

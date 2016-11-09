@@ -186,13 +186,13 @@ nav{
     > label{
       position: fixed;
       width: 100%;
-      font-size:200px;
-      height:200px;
+      font-size:12vw;
+      height:12vw;
       line-height: 1;
-      top:calc(50% - 120px);
+      top:calc(50% - 6vw);
       text-align: center;
-      font-weight: 600;
-      letter-spacing: .25em;
+      font-weight: 700;
+      letter-spacing: .3em;
       z-index:$z-nav-label;
     }
     

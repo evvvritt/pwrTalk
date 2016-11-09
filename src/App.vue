@@ -103,6 +103,19 @@ button{
   border:none
 }
 
+// fonts
+
+@font-face {
+  font-family: 'Input';
+  src: url('/static/fonts/InputSansCondensed-Regular.ttf')  format('truetype');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Input';
+  src: url('/static/fonts/InputSansCondensed-Medium.ttf')  format('truetype');
+  font-weight: bold;
+}
+
 
 // global 
 
@@ -111,9 +124,9 @@ html{
 }
 
 body{
-  font-family: Source Sans Pro, Helvetica, sans-serif;
-  font-weight: 600;
-  font-size:18px;
+  font-family: 'Miriam Libre', Source Sans Pro, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size:16px;
 }
 
 // helpers
