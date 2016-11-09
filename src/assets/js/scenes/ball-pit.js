@@ -1,6 +1,6 @@
 const Matter = require('matter-js');
 const Scenes = require('./_scenes.js');
-const color = require('tinycolor2');
+//const color = require('tinycolor2');
 
 // gravity
 (function () {
@@ -44,7 +44,7 @@ const color = require('tinycolor2');
         //friction: 0.001, //0.0001,
         restitution: 0.4,
         render: {
-          fillStyle: color(bgColor).darken().saturate(25), //.setAlpha(0.75), //'rgb(255,0,98)', //fillColor, //'rgba(0,0,255,.75)',
+          fillStyle: bgColor, //color(bgColor).darken().saturate(25), //.setAlpha(0.75), //'rgb(255,0,98)', //fillColor, //'rgba(0,0,255,.75)',
           strokeStyle: 'transparent'
         },
       }

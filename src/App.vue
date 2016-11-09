@@ -35,7 +35,7 @@ export default {
               opacity: 0,
               direction: 'right'
             },
-            shapes: 'rgb(252,67,111)',
+            shapes: 'rgb(255,0,98)',
           },
           events: [
             { time: 3, color: 'red', transition: '1200ms' },
@@ -80,7 +80,7 @@ export default {
     for (let i = this.scenes.length - 1; i >= 0; i--) {
       this.scenes[i]._init = {}
       this.scenes[i]._init.events = this.scenes[i].events.slice(0)
-      this.scenes[i]._init.colors = Object.assign({}, this.scenes[i].colors)
+      this.scenes[i]._init.bg = Object.assign({}, this.scenes[i].colors.bg)
     }
   }
 };

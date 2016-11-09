@@ -129,7 +129,7 @@ export default {
     },
     index: function (newVal, oldVal) {
       if (oldVal.length !== -1) {
-        this.$set(this.scenes[oldVal], 'colors', Object.assign({}, this.scenes[oldVal]._init.colors))
+        this.$set(this.scenes[oldVal].colors, 'bg', Object.assign({}, this.scenes[oldVal]._init.bg))
         this.scenes[oldVal].events = this.scenes[oldVal]._init.events.slice(0)
       }
     }
