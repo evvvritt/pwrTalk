@@ -222,6 +222,11 @@ nav{
     }
 }
 
+article{
+  width:95%;
+  margin:0 auto;
+}
+
 .text{
   font-size:3em;
   line-height: 2em;
@@ -229,6 +234,11 @@ nav{
   word-wrap:break-word;
   position: relative;
   z-index: 30;
+  @media screen and (max-width:$bkpt-m){
+    font-size:1.5em;
+    margin-left:10% !important;
+    margin-right:0 !important;
+  }
 }
   
 </style>
