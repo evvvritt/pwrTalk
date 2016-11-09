@@ -38,7 +38,7 @@ const color = require('tinycolor2');
     );
 
     // Bodies
-    const stack = Composites.stack(50, 50, 3, 3, 100, 50, (x, y) => {
+    const stack = Composites.stack(window.innerWidth/8, window.innerHeight/4, 3, 3, 100, 50, (x, y) => {
       const options = {
         //frictionAir: 0,
         //friction: 0.001, //0.0001,
