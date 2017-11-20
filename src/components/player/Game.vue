@@ -1,38 +1,57 @@
-<template lang="jade">
-  #matterjs.background(v-if="gaming",ref="gameboard",:data-engine="current.game",:data-fill="current.colors.shapes",@mousewheel="gameLowerZ")
+<template lang="pug">
+  #matterjs(v-if="gaming", :data-game="current.game", :data-fill="current.colors.shapes", @mousewheel="isBehindText")
 </template>
 
 <script>
-const Game = require('../../assets/js/game.js')
-
+import Game from '@/plugins/game.js'
 export default {
-  props: ['gaming', 'current'],
-  methods: {
-    gameLowerZ: function () {
-      this.$refs.gameboard.classList.add('behind-text')
-    },
-  },
-  watch: {
-    gaming: (gaming) => {
-      if (gaming) setTimeout(() => Game.init(), 10)
-    },
-    current: (current) => {
-      setTimeout(() => Game.changeScene(current.game), 10)
+  props: ['current', 'play', 'gaming', 'event'],
+  data () {
+    return {
+      isBackground: false
     }
   },
-  // events
-  mounted() {
-    Game.init()
+  watch: {
+    current (current) {
+      this.$nextTick(() => { Game.changeGame(current.game) })
+    },
+    gaming (gaming) {
+      if (gaming) this.$nextTick(() => { this.start() })
+    },
+    play (play) {
+      if (play) {
+        Game.explosion()
+        Game.gravity(0, 0)
+      } else {
+        Game.gravity(0, 0.25)
+      }
+    },
+    event () {
+      Game.explosion()
+    }
+  },
+  methods: {
+    start () {
+      Game.init(this.$el)
+    },
+    isBehindText: function () {
+      this.$el.classList.add('behind-text')
+    }
+  },
+  mounted () {
+    this.start()
   }
 }
 </script>
 
 <style lang="scss">
 @import '../../style/variables';
+$offset: 30%;
 #matterjs{
   position: fixed;
+  width:100% + $offset; height:100% + $offset;
+  top:-$offset/2; left:-$offset/2;
   z-index:$z-matterjs;
-  //height:calc(100vh - #{$nav-h});
   &.behind-text{
     z-index:25;
   }

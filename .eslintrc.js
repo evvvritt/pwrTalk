@@ -1,47 +1,27 @@
+// https://eslint.org/docs/user-guide/configuring
+
 module.exports = {
   root: true,
   parser: 'babel-eslint',
   parserOptions: {
     sourceType: 'module'
   },
-  extends: 'airbnb-base',
+  env: {
+    browser: true,
+  },
+  // https://github.com/standard/standard/blob/master/docs/RULES-en.md
+  extends: 'standard',
   // required to lint *.vue files
   plugins: [
     'html'
   ],
-  // check if imports actually resolve
-  'settings': {
-    'import/resolver': {
-      'webpack': {
-        'config': 'build/webpack.base.conf.js'
-      }
-    }
-  },
   // add your custom rules here
   'rules': {
-    // don't require .vue extension when importing
-    'import/extensions': ['error', 'always', {
-      'js': 'never',
-      'vue': 'never'
-    }],
+    // allow paren-less arrow functions
+    'arrow-parens': 0,
+    // allow async-await
+    'generator-star-spacing': 0,
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    // allow console during development
-    'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
-    // my rules
-    'func-names': 0,
-    'semi': 0,
-    'comma-dangle': 0,
-    'object-shorthand': 0,
-    'spaced-comment': 0,
-    'no-underscore-dangle':0,
-    'max-len':0,
-    'padded-blocks':0,
-    'space-infix-ops':0,
-    'prefer-template':0,
-    'no-plusplus':0,
-  },
-  'env': {
-    'browser': true
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }
 }

@@ -1,22 +1,22 @@
-<template lang="jade">
+<template lang="pug">
   .background(:style="layer0")
     .background(:style="layer1")
 </template>
 
 <script>
 export default {
-  props: ['colors'],
+  props: ['main', 'mainTransition', 'gradient'],
   computed: {
-    layer0() {
+    layer0 () {
       return {
-        backgroundColor: this.colors.bg.color,
-        transitionDuration: this.colors.bg.transition
+        backgroundColor: this.main,
+        transitionDuration: this.mainTransition + 'ms'
       }
     },
-    layer1() {
+    layer1 () {
       return {
-        opacity: this.colors.gradient.opacity,
-        background: `linear-gradient(to ${this.colors.gradient.direction}, ${this.colors.gradient.start} 0%, ${this.colors.gradient.end} 100%)`
+        opacity: this.gradient.opacity,
+        background: `linear-gradient(to ${this.gradient.direction}, ${this.gradient.start} 0%, ${this.gradient.end} 100%)`
       }
     }
   }
